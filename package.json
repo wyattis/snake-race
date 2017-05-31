@@ -24,6 +24,9 @@
   "homepage": "https://github.com/wyattis/snake-race#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "webpack": "^2.6.1"
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0",
+    "webpack": "^2.6.1",
+    "webpack-stream": "^3.2.0"
   }
 }

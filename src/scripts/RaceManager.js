@@ -1,14 +1,20 @@
 let SignalManager = require('./SignalManager.js');
 
 class RaceManager{
+    
     constructor(speed, numMaps){
+        
         this.speed = speed;
         this.maps = [];
         this.stepCbs = [];
         this.renderCbs = [];
         this.signals = new SignalManager();
         this.generateMaps(numMaps);
+        this.state = 'ready';
+        this.animationRequestId = null;
+        
     }
+    
     
     generateMaps(num=10){
         
@@ -41,12 +47,22 @@ class RaceManager{
         
     }
     
+    
+    /**
+     * Start the race. 
+     */
     start(){
+        
         this.update = this.update.bind(this);
         this.lastTick = performance.now();
-        requestAnimationFrame(this.update);
+        this.animationRequestId = requestAnimationFrame(this.update);
+        
     }
     
+    
+    /**
+     * The main loop. Called by requestAnimationFrame.
+     */
     update(timestamp){
         
         if (!this.lastTick) {
@@ -75,7 +91,7 @@ class RaceManager{
             this.renderCbs[renderCbIndex]();
         }
         
-        requestAnimationFrame(this.update);
+        this.animationRequestId = requestAnimationFrame(this.update);
     }
 
 }

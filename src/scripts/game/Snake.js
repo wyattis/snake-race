@@ -1,3 +1,5 @@
+let DIR = require('../Enums.js').DIR;
+
 class Snake {
     
     constructor(pos, startLength = 15, spacing = 1) {
@@ -5,7 +7,7 @@ class Snake {
         this.spacing = spacing;
         this.moveQueue = [];
         this.fillStyle = '#86BBD8';
-        this.direction = Snake.DIR.DOWN;
+        this.direction = DIR.DOWN;
         this.pos = pos;
         this.vel = { x: 0, y: 1 };
         this.startLength = startLength;
@@ -22,19 +24,19 @@ class Snake {
             //  For example: UP: 1, DOWN: -1 --> 1 - 1 === 0 && 1 + (-1) === 0
             if (nextDirection + this.direction && nextDirection - this.direction) {
                 switch (nextDirection) {
-                    case Snake.DIR.UP:
+                    case DIR.UP:
                         this.vel.x = 0;
                         this.vel.y = -1;
                         break;
-                    case Snake.DIR.DOWN:
+                    case DIR.DOWN:
                         this.vel.x = 0;
                         this.vel.y = 1;
                         break;
-                    case Snake.DIR.LEFT:
+                    case DIR.LEFT:
                         this.vel.x = -1;
                         this.vel.y = 0;
                         break;
-                    case Snake.DIR.RIGHT:
+                    case DIR.RIGHT:
                         this.vel.x = 1;
                         this.vel.y = 0;
                         break;
@@ -65,7 +67,7 @@ class Snake {
     reset(pos){
         
         this.moveQueue = [];
-        this.direction = Snake.DIR.DOWN;
+        this.direction = DIR.DOWN;
         this.vel = { x: 0, y: 1 };
         this.pos = pos;
         this.fillStyle = '#86BBD8';
@@ -77,19 +79,19 @@ class Snake {
     }
 
     up() {
-        this.moveQueue.push(Snake.DIR.UP);
+        this.moveQueue.push(DIR.UP);
     }
 
     left() {
-        this.moveQueue.push(Snake.DIR.LEFT);
+        this.moveQueue.push(DIR.LEFT);
     }
 
     down() {
-        this.moveQueue.push(Snake.DIR.DOWN);
+        this.moveQueue.push(DIR.DOWN);
     }
 
     right() {
-        this.moveQueue.push(Snake.DIR.RIGHT);
+        this.moveQueue.push(DIR.RIGHT);
     }
 
     add(num = 1) {
@@ -112,6 +114,5 @@ class Snake {
     }
     
 }
-Snake.DIR = { DOWN: -1, UP: 1, LEFT: -2, RIGHT: 2 };
 
 module.exports = Snake;
