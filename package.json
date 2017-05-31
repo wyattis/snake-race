@@ -1,0 +1,29 @@
+{
+  "name": "snake-race",
+  "version": "1.0.0",
+  "description": "Snake game and various AI strategies to race/compare against each other.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyattis/snake-race.git"
+  },
+  "keywords": [
+    "snake",
+    "race",
+    "ai",
+    "astar"
+  ],
+  "author": "Wyatt Israel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyattis/snake-race/issues"
+  },
+  "homepage": "https://github.com/wyattis/snake-race#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "webpack": "^2.6.1"
+  }
+}
