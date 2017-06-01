@@ -63,6 +63,7 @@ class Game{
         this.snake.reset(snakePos);
         this.food = this.nextFoodPos();
         this.controller = new this.ControllerConstructor(this.snake, this.map);
+        this.controller.moveTo(this.food);
         this.state = 'running';
         this.map.reset();
         

@@ -11,6 +11,9 @@ let controllers = {
     'User 2' : {
         Constructor: require('./controllers/User2Controller.js'),
     },
+    'Simple AI': {
+        Constructor: require('./controllers/SimpleAI.js'),
+    }
 };
 
 
