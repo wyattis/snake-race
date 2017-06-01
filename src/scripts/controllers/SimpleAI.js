@@ -7,18 +7,19 @@ let AI = require('./AI.js');
  */
 class SimpleAI extends AI{
     
+    
     /**
-     * Find the next move
+     * Get the next available position that minimizes the L1Norm.
      */
-    updatePath(){
+    getMinL1(pos, dir, target){
         
-        let adjascent = this.getAdjascent(this.snake.pos, this.snake.direction);
+        let adjascent = this.getAdjascent(pos, dir);
         
         // Sort from smallest L1 norm to largest. We will prioritize the
         // smallest one.
         adjascent.sort((a, b) => {
             
-            return this.normL1(a, this.target) > this.normL1(b, this.target);
+            return this.normL1(a, target) > this.normL1(b, target);
             
         });
         
@@ -28,12 +29,26 @@ class SimpleAI extends AI{
         while(move){
             
             if(this.map.canMoveTo(move)){
-                this.path.push(move);
-                break;
+                
+                return move;
+                
             }
             
             move = adjascent.shift();
             
+        }
+        
+    }
+    
+    
+    /**
+     * Find the next move
+     */
+    updatePath(){
+        
+        let move = this.getMinL1(this.snake.pos, this.snake.direction, this.target);
+        if(move){
+            this.path.push(move);
         }
         
     }

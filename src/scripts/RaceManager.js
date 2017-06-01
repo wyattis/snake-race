@@ -17,8 +17,11 @@ class RaceManager{
     
     
     resize(size){
+        
+        this.foodPositions = [];
         this.mapSize.width = size.width;
         this.mapSize.height = size.height;
+        
     }
     
     
@@ -99,6 +102,7 @@ class RaceManager{
         this.lossCount = 0;
         this.stepCbs = [];
         this.renderCbs = [];
+        this.foodPositions = [];
         
     }
     
@@ -139,6 +143,7 @@ class RaceManager{
         game.onLose = () => {
             
             this.lossCount ++;
+            console.log('losses', this.lossCount);
             
             if(this.lossCount === this.gameCount){
                 

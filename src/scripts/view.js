@@ -13,6 +13,9 @@ let controllers = {
     },
     'Simple AI': {
         Constructor: require('./controllers/SimpleAI.js'),
+    },
+    'A* AI': {
+        Constructor: require('./controllers/AStarAI.js'),
     }
 };
 
