@@ -4,10 +4,10 @@ Snake game and various AI strategies to race/compare against each other. See it 
 ## TODO
 - [ ] Handle race states by enabling/disabling controls
 - [ ] Display race state messages (loss/win)
-- [ ] Add AI variations
-- [ ] Add AI selection
-- [ ] Fix map glitch where snake can move through itself
+- [ ] Fix map glitch where snake can move through itself (How to reproduce?)
 - [ ] Add AI explanations
+- [x] Add AI variations
+- [x] Add AI selection
 - [x] Add UserController with second player controls
 
 
