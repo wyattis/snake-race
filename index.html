@@ -11,8 +11,11 @@
     <div class="container">
         <div id="snake-race">
             <h1>Snake Race</h1>
+            <div class="state">
+                {{state}}
+            </div>
             <div class="controls">
-                <button v-on:click="start()" :disabled="race.state !== 'ready'">Start</button>
+                <button v-on:click="start()" :disabled="state !== 'ready'">Start</button>
                 <div class="player" v-for="player in players">
                     {{player.name}}
                     <label for="controller">Controller</label>

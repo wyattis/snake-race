@@ -36,15 +36,17 @@ Vue.component('game', {
     }
 });
 
-module.exports = new Vue({
+let race = new RaceManager(INIT_SPEED);
+new Vue({
     el: '#snake-race',
     data: {
         controllers: controllers,
-        speed: INIT_SPEED,
         mapSize: {
             width: 34,
             height: 20,
         },
+        speed: INIT_SPEED,
+        state: 'ready',
         blockSize: 16,
         players: [{
             name: 'Player 1',
@@ -53,26 +55,31 @@ module.exports = new Vue({
             name: 'Player 2',
             controller: controllers['User 2'].Constructor
         }],
-        games: [],
-        race: new RaceManager(INIT_SPEED),
+        games: []
     },
     mounted: function(){
         
         for(let p of this.players){
             let game = new Game(this.mapSize, this.blockSize, p.controller);
             game.name = p.name;
-            this.race.addGame(game);
+            race.addGame(game);
             this.games.push(game);
         }
           
     },
+    watch: {
+        race: function(){
+            console.log('computed state', this.race.state);
+            return this.race.state;
+        }
+    },
     methods: {
         start: function(){
             
-            if(this.race.state !== 'ready')
+            if(race.state !== 'ready')
                 return;
             
-            this.race.resize(this.mapSize);
+            race.resize(this.mapSize);
             
             // Create a game for each player
             for(let i in this.games){
@@ -86,7 +93,8 @@ module.exports = new Vue({
                 
             }
             
-            this.race.start();
+            race.start();
+            this.state = race.state;
             
         }
     }
