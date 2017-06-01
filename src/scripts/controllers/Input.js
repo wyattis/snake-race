@@ -1,7 +1,7 @@
 class Input{
     constructor(){
         
-        this.keys = {UP: 38, DOWN: 40, RIGHT: 39, LEFT: 37, SPACE: 32};
+        this.keys = {UP: 38, DOWN: 40, RIGHT: 39, LEFT: 37, SPACE: 32, A: 65, S: 83, W: 87, D: 68};
         this.keyMem = {};
         for(let name in this.keys){
             this.keyMem[this.keys[name]] = {

@@ -9,7 +9,7 @@ let controllers = {
         Constructor: require('./controllers/UserController.js'),
     },
     'User 2' : {
-        Constructor: require('./controllers/UserController.js'),
+        Constructor: require('./controllers/User2Controller.js'),
     },
 };
 
@@ -66,11 +66,17 @@ module.exports = new Vue({
             if(this.race.state !== 'ready')
                 return;
             
+            this.race.resize(this.mapSize);
+            
             // Create a game for each player
-            for(let game of this.games){
+            for(let i in this.games){
+                
+                let game = this.games[i];
+                let player = this.players[i];
                 
                 game.resize(this.mapSize, this.blockSize);
-                game.start();
+                game.ControllerConstructor = player.controller;
+                game.reset({x: this.mapSize.width / 2, y: this.mapSize.height / 2});
                 
             }
             

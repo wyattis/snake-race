@@ -13,6 +13,15 @@
             <h1>Snake Race</h1>
             <div class="controls">
                 <button v-on:click="start()" :disabled="race.state !== 'ready'">Start</button>
+                <div class="player" v-for="player in players">
+                    {{player.name}}
+                    <label for="controller">Controller</label>
+                    <select name="controller" v-model="player.controller">
+                        <option v-for="(c, name) in controllers" v-bind:value="c.Constructor">
+                            {{name}}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="games">
                 <game v-for="game in games" :game="game"></game>

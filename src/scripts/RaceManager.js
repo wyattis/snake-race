@@ -5,30 +5,22 @@ class RaceManager{
     constructor(speed){
         
         this.speed = speed;
-        this.maps = [];
+        this.mapSize = {width: 20, height: 20};
+        this.foodPositions = [];
         this.stepCbs = [];
         this.renderCbs = [];
         this.signals = new SignalManager();
-        this.generateMap();
         this.state = 'ready';
         this.animationRequestId = null;
         
     }
     
     
-    /**
-     * Create a list of all of the possible food positions for a map
-     */
-    generateMap(){
-        
-        // TODO:
-        // for(let n=0; n<num; n++){
-        //     this.maps.push({
-        //         foodPos: 
-        //     })
-        // }
-        
+    resize(size){
+        this.mapSize.width = size.width;
+        this.mapSize.height = size.height;
     }
+    
     
     addStep(cb, context){
         
@@ -112,6 +104,27 @@ class RaceManager{
     
     
     /**
+     * Get the food position for this index. If it doesn't exist yet then we
+     * create it.
+     * 
+     * @param {Integer} index - The index of the food we're getting
+     */
+    getFoodPos(index){
+        
+        // Create the food position at this index
+        if(!this.foodPositions[index]){
+            this.foodPositions[index] = {
+                x: Math.floor(Math.random() * this.mapSize.width),
+                y: Math.floor(Math.random() * this.mapSize.height),
+            };
+        }
+        
+        return this.foodPositions[index];
+        
+    }
+    
+    
+    /**
      * Add a game to the race.
      * 
      * @param {Game} game - An instance of the Snake game
@@ -135,7 +148,11 @@ class RaceManager{
             
         };
         
-        game.start();
+        
+        // Get the next food from the stack
+        game.nextFoodPos = () => {
+            return this.getFoodPos(game.score / 100);
+        };
         
     }
 

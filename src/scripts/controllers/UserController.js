@@ -1,6 +1,6 @@
 let Controller = require('./Controller.js');
 let Input = require('./Input.js');
-const DIR = {DOWN: 0, UP: 1, LEFT: 2, RIGHT: 3};
+const DIR = require('../Enums.js').DIR;
 
 class UserController extends Controller{
     
@@ -8,10 +8,27 @@ class UserController extends Controller{
         
         super(snake, undefined);
         this.input = new Input();
+        this.keyMap = {};
+        this.setupKeyMap();
         this.inputQueue = [];
         this.setupInput();
         
     }
+    
+    
+    /**
+     * Setup the keymap. This is a seperate function to make this class more
+     * extensible.
+     */
+    setupKeyMap(){
+        
+        this.keyMap[DIR.DOWN] = this.input.keys.DOWN;
+        this.keyMap[DIR.UP] = this.input.keys.UP;
+        this.keyMap[DIR.RIGHT] = this.input.keys.RIGHT;
+        this.keyMap[DIR.LEFT] = this.input.keys.LEFT;
+        
+    }
+    
     
     /**
      * Handle a single step of the game. If the user 
@@ -42,18 +59,17 @@ class UserController extends Controller{
     
     setupInput(){
         
-        this.input.onDown(this.input.keys.DOWN, e => {
-            this.inputQueue.push(DIR.DOWN);
-        });
-        this.input.onDown(this.input.keys.LEFT, e => {
-            this.inputQueue.push(DIR.LEFT);
-        });
-        this.input.onDown(this.input.keys.RIGHT, e => {
-            this.inputQueue.push(DIR.RIGHT);
-        });
-        this.input.onDown(this.input.keys.UP, e => {
-            this.inputQueue.push(DIR.UP);
-        });
+        let assignInput = (key, direction) => {
+            this.input.onDown(key, e => {
+                console.log(e.keyCode, direction);
+                this.inputQueue.push(direction);
+            });
+        };
+        
+        for(let direction in this.keyMap){
+            assignInput(this.keyMap[direction], +direction);
+        }
+
 
     }
     

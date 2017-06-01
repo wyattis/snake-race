@@ -47,27 +47,27 @@ class Game{
         
     }
     
-    reset(snakePos, foodPos){
+    
+    nextFoodPos(){
+        
+        return this.map.spawn();
+        
+    }
+    
+    reset(snakePos){
         
         this.map.reset();
         snakePos = snakePos || this.map.spawn();
-        foodPos = foodPos || this.map.spawn();
         this.score = 0;
         this.stepCount = 0;
         this.snake.reset(snakePos);
-        this.food = this.map.spawn();
+        this.food = this.nextFoodPos();
         this.controller = new this.ControllerConstructor(this.snake, this.map);
-        console.log('initial map:', this.map.toString());
         this.state = 'running';
         this.map.reset();
         
     }
 
-    start(){
-        
-        this.state = 'running';
-        
-    }
           
     step(){
 
@@ -95,10 +95,10 @@ class Game{
         if(this.food.x === this.snake.blocks[0].x 
            && this.food.y === this.snake.blocks[0].y){
             
-            this.food = this.map.spawn();
-            this.snake.add();
-            this.controller.moveTo(this.food);
             this.score += 100;
+            this.snake.add();
+            this.food = this.nextFoodPos();
+            this.controller.moveTo(this.food);
             
         }
         
