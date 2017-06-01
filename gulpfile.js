@@ -17,13 +17,21 @@ gulp.task('sass', function(){
 
 gulp.task('webpack', function(){
     
-    return gulp.src('src/scripts/entry.js')
+    return gulp.src('src/scripts/view.js')
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest(''));
         
 });
 
 
+gulp.task('watch', function(){
+    
+    gulp.watch('src/scripts/**/*', ['webpack']);
+    gulp.watch('src/styles/**/*', ['sass']);
+    
+});
+
+
 gulp.task('build', ['sass', 'webpack']);
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build', 'watch']);

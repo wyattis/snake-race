@@ -7,11 +7,11 @@ let size = {x: 34, y: 20};
 let games = [{
     canvas: 'player-one-canvas', 
     stats: 'player-one-stats', 
-    AI: UserController
+    ControllerConstructor: UserController
 },{
     canvas: 'player-two-canvas',
     stats: 'player-two-stats',
-    AI: UserController
+    ControllerConstructor: UserController
 }];
 
 let race = new RaceManager(16, 10);
@@ -20,14 +20,8 @@ for(let g of games){
     let ctx = document.getElementById(g.canvas).getContext("2d");
     ctx.canvas.width = size.x * BLOCK_SIZE;
     ctx.canvas.height = size.y * BLOCK_SIZE;
-    let snake = new Game(ctx, size.x, size.y, BLOCK_SIZE, g.AI);
-    snake.onLose = function(){
-        race.signals.add(snake.reset, race.speed > 60 ? 1000 * 60 / race.speed : 1000, snake);        
-    };
-    
-    // Add our step callback and our render callback for the game
-    race.addStep(snake.step, snake);
-    race.addRender(snake.render, snake);
+    let snake = new Game(ctx, size.x, size.y, BLOCK_SIZE, g.ControllerConstructor);
+    race.addGame(snake);
     
     
     let statsDiv = document.getElementById(g.stats);
@@ -47,8 +41,5 @@ for(let g of games){
         highScore.innerHTML = `High Score: ${snake.highScore || snake.score}`;
         numGames.innerHTML = `# Games: ${snake.scores.length}`;
     });
-    snake.start();
     
 }
-
-race.start();

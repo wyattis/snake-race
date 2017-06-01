@@ -2,21 +2,24 @@ let SignalManager = require('./SignalManager.js');
 
 class RaceManager{
     
-    constructor(speed, numMaps){
+    constructor(speed){
         
         this.speed = speed;
         this.maps = [];
         this.stepCbs = [];
         this.renderCbs = [];
         this.signals = new SignalManager();
-        this.generateMaps(numMaps);
+        this.generateMap();
         this.state = 'ready';
         this.animationRequestId = null;
         
     }
     
     
-    generateMaps(num=10){
+    /**
+     * Create a list of all of the possible food positions for a map
+     */
+    generateMap(){
         
         // TODO:
         // for(let n=0; n<num; n++){
@@ -92,6 +95,48 @@ class RaceManager{
         }
         
         this.animationRequestId = requestAnimationFrame(this.update);
+    }
+    
+
+    /**
+     * Reset the race
+     */
+    reset(){
+        
+        this.gameCount = 0;
+        this.lossCount = 0;
+        this.stepCbs = [];
+        this.renderCbs = [];
+        
+    }
+    
+    
+    /**
+     * Add a game to the race.
+     * 
+     * @param {Game} game - An instance of the Snake game
+     */
+    addGame(game){
+        
+        this.gameCount ++;
+        this.addStep(game.step, game);
+        this.addRender(game.render, game);
+        
+        // Keep track of losses
+        game.onLose = () => {
+            
+            this.lossCount ++;
+            
+            if(this.lossCount === this.gameCount){
+                
+                this.state = 'lost';
+                
+            }
+            
+        };
+        
+        game.start();
+        
     }
 
 }

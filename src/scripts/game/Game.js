@@ -3,24 +3,49 @@ let Map = require('./Map.js');
 
 class Game{
     
-    constructor(ctx, w, h, size = 20, ControllerConstructor){
+    constructor(size, blockSize, ControllerConstructor){
         
         this.state = 'created';
         this.highScore = 0;
         this.avgScore = 0;
         this.scores = [];
         this.steps = [];
-        this.ctx = ctx;
-        this.size = size;
+        this.blockSize = blockSize;
+        this.ctx = document.createElement('canvas').getContext('2d');
         this.ControllerConstructor = ControllerConstructor;
         this.onLose = () => {};
         
-        this.map = new Map(w, h);
+        this.map = new Map(size.width, size.height);
         this.snake = new Snake(this.map.spawn());
         this.map.reset(this.snake);
         this.reset();
         
-    }    
+    }
+    
+    
+    /**
+     * Resize the game to the specified dimensions
+     */
+    resize(size, blockSize){
+        
+        this.blockSize = blockSize;
+        this.ctx.canvas.width = size.width * blockSize;
+        this.ctx.canvas.height = size.height * blockSize;
+        this.map.resize(size.width, size.height);
+        
+    }
+    
+    
+    /**
+     * Append the canvas to the supplied element
+     * 
+     * @param {HtmlDomElement} parent - The html element to append to
+     */
+    mount(parent){
+        
+        parent.appendChild(this.ctx.canvas);
+        
+    }
     
     reset(snakePos, foodPos){
         
@@ -115,17 +140,17 @@ class Game{
     render(){
         
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        this.snake.render(this.ctx, this.size);
+        this.snake.render(this.ctx, this.blockSize);
         
         this.ctx.fillStyle = '#C33754';
-        this.ctx.fillRect(this.food.x * this.size, this.food.y * this.size, this.size, this.size);
+        this.ctx.fillRect(this.food.x * this.blockSize, this.food.y * this.blockSize, this.blockSize, this.blockSize);
         
         
         // TODO: Draw the AI path as arrows 
         if(this.controller && this.controller.path){
             this.ctx.fillStyle = '#F6AE2D';
             for(let move of this.controller.path){
-                this.ctx.fillRect(move.x * this.size + this.size / 4, move.y * this.size + this.size / 4, this.size - this.size / 2, this.size - this.size / 2);
+                this.ctx.fillRect(move.x * this.blockSize + this.blockSize / 4, move.y * this.blockSize + this.blockSize / 4, this.blockSize - this.blockSize / 2, this.blockSize - this.blockSize / 2);
             }
         }
         

@@ -8,28 +8,24 @@
 </head>
 
 <body>
-    <div>
-        <h1>Snake Race</h1>
-        <div class="game">
-            <div class="header">
-                <h3>Player 1</h3>
+    <div class="container">
+        <div id="snake-race">
+            <h1>Snake Race</h1>
+            <div class="controls">
+                <button v-on:click="start()" :disabled="race.state !== 'ready'">Start</button>
             </div>
-            <div class="stats" id="player-one-stats"></div>
-            <div class="canvas-container">
-                <canvas id="player-one-canvas"></canvas>
+            <div class="games">
+                <game v-for="game in games" :game="game"></game>
             </div>
         </div>
-        <div class="game">
-            <div class="header">
-                <h3>Player 2</h3>
-            </div>
-            <div class="stats" id="player-two-stats"></div>
-            <div class="canvas-container">
-                <canvas id="player-two-canvas"></canvas>
+        <div class="explanations">
+            <div class="explanation">
+                <h2>UserController</h2>
+                <p>This class takes user input and converts it into commands for the snake to perform. Yes it is possible for one player to control both games.</p>
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
     <script type="text/javascript" src="snake-race.js"></script>
 </body>
 

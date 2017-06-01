@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/scripts/entry.js',
+    entry: './src/scripts/view.js',
     output: {
         path: __dirname,
         filename: 'snake-race.js'
