@@ -48,12 +48,21 @@ class Game{
     }
     
     
+    
+    /**
+     * Get the next food position. This method is overidden in the view for the 
+     *  purpose of always having the food in the same position for both racers.
+     */
     nextFoodPos(){
         
         return this.map.spawn();
         
     }
     
+    
+    /**
+     * Reset the game by reseting all relevant properties and positions.
+     */
     reset(snakePos){
         
         this.map.reset();
@@ -69,7 +78,12 @@ class Game{
         
     }
 
-          
+    
+    /**
+     * Perform a single step of the game. It is possible to do any number of 
+     *  steps per render frame, but the pathfinding AIs will likely slow things
+     *  down in a big way.
+     */
     step(){
 
         if(this.state === 'running'){            
@@ -88,6 +102,7 @@ class Game{
         
     }
     
+    
     /**
      * Check if we've hit the food yet
      */
@@ -104,6 +119,7 @@ class Game{
         }
         
     }
+    
     
     /**
      * We've lost. Schedule reset and do other lost stuff
@@ -138,6 +154,9 @@ class Game{
     }
     
     
+    /**
+     * Render a single frame of the game.
+     */
     render(){
         
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);

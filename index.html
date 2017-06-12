@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Snake Race!</title>
     <link rel="stylesheet" href="snake-race.css" type="text/css" />
 </head>
@@ -32,8 +33,29 @@
         </div>
         <div class="explanations">
             <div class="explanation">
-                <h2>UserController</h2>
-                <p>This class takes user input and converts it into commands for the snake to perform. Yes it is possible for one player to control both games.</p>
+                <h2>User 1 & 2</h2>
+                <p>
+                    This class takes user input and converts it into commands for the snake to perform. Yes it is possible for one player to control both games. The difference between the 2 user controllers is just the keys that are used. User 1 uses the cursors to move
+                    while User 2 uses WASD to move.
+                </p>
+            </div>
+            <div class="explanation">
+                <h2>Simple AI</h2>
+                <p>
+                    This is about the simplest AI that can play the game. With each step of the game the AI is just checking for available moves and finding the one that minimizes the L1 norm the most. It is prone to entering concave spaces that it can't escape from, but it is also good at taking up space when it gets stuck in a tight spot and can sometime escape when it has trapped itself.
+                </p>
+            </div>
+            <div class="explanation">
+                <h2>A* AI</h2>
+                <p>
+                    This AI uses the A* (A star) pathfinding algorithm to find the best path to the food. It is prone to failure when there isn't a path available. This can happen when the snake gets longer and blocks direct paths to the food and also when the food spawns in the snake.
+                </p>
+            </div>
+            <div class="explanation">
+                <h2>Up Down AI</h2>
+                <p>
+                    This might be the simplest form of "AI" for snake that is guaranteed to win every time. It will basically just traverse each column from right to left until it reaches the end at which point it will return via the top or bottom row. Super boring to watch, but a simple pattern that will win every single time. Another pattern that could also be guaranteed to win would be a spiral formation. The spiral pattern could be more challenging depending on the shape of the map and would likely have more edge cases to deal with.
+                </p>
             </div>
         </div>
     </div>

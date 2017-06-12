@@ -16,6 +16,9 @@ let controllers = {
     },
     'A* AI': {
         Constructor: require('./controllers/AStarAI.js'),
+    },
+    'Up Down AI': {
+        Constructor: require('./controllers/UpDownAI.js'),
     }
 };
 
@@ -53,7 +56,7 @@ new Vue({
             controller: controllers['User 1'].Constructor
         }, {
             name: 'Player 2',
-            controller: controllers['User 2'].Constructor
+            controller: controllers['A* AI'].Constructor
         }],
         games: []
     },

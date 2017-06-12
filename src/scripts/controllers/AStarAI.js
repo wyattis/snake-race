@@ -1,7 +1,7 @@
 /*global astar Graph*/
-let SimpleAI = require('./SimpleAI.js');
+let AI = require('./AI.js');
 
-class AStarAI extends SimpleAI{
+class AStarAI extends AI{
     
     /**
      * Use A* search method to look for optimal path. Uses this library
@@ -23,6 +23,22 @@ class AStarAI extends SimpleAI{
     updatePath(){
         
         this.path = this.aStarPath();
+        
+    }
+    
+    
+    /**
+     * Handle a single step of the AI
+     */
+    step(){
+        
+        // How often to look for the optimal path
+        if(this.path.length === 0 || this.stepsSinceLastUpdate > 4){
+            this.stepsSinceLastUpdate = 0;
+            this.updatePath();
+        }
+        this.stepsSinceLastUpdate ++;
+        this.move();
         
     }
     
